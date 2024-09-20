@@ -3,16 +3,29 @@
 
 /Git Riddance - for Good Riddance!/
 
+html
+<div>
+<img src="https://img.shields.io/badge/GNU%20Emacs-7F5AB6?logo=gnuemacs&logoColor=fff&style=plastic" alt="GNU Emacs"/>
+</div>
+#+end_html
+
 ~git-riddance~ is an Emacs package that will help you completely destroy the Git history of your desired directory, and allow you to start a new one with 1 commit, effectively obliterating other history in that branch.
 
 *Licensing*
 
 Git Riddance is licensed under the GNU General Public License v3 or newer and is completely free software.
 
+*Usage*
+
+After installing, simply call ~M-x git-riddance~ or bind it to a key shortcut, and you will be prompted for the required data and target directory.
+There are some sane defaults configured, and all is customizable so you can override them with your own in your config.
+Check out [[./git-riddance.el][./git-riddance.el]] for more details.
+
 #+begin_html
 <img src="./resources/img/git-riddance.webp"/>
 #+end_html
 
 /image is courtesy of DALL E/
+
 
 
