@@ -2,11 +2,13 @@
 
 ;; Copyright (C) 2024 Free Software Foundation, Inc.
 
-;; Version: 0.3.0
+;; Version: 0.3.1
 ;; Author: Josep Bigorra <jjbigorra@gmail.com>
 ;; Maintainer: Josep Bigorra <jjbigorra@gmail.com>
+;; URL: https://github.com/jjba23/git-riddance.el
 ;; Keywords: git, git-riddance, history
-;; Package: emacs
+;; Package: git-riddance
+;; Package-Requires: ((emacs "24.1"))
 
 ;; This file is part of GNU Emacs.
 
@@ -35,8 +37,7 @@
 
 (defgroup git-riddance ()
   "Git Riddance customization group."
-  :group 'tools
-  )
+  :group 'tools)
 
 (defcustom git-riddance-remote-name "github"
   "Default name for the Git remote to push to."
@@ -64,93 +65,76 @@
 
 (defcustom git-riddance-msg-new-commit-message (format "%s enter the new commit message: " git-riddance-message-prefix)
   "Message to show the user when asking for a new commit message."
-    :type 'string
-    )
+    :type 'string)
 
 (defcustom git-riddance-msg-branch-name (format "%s enter the name of the branch: " git-riddance-message-prefix)
   "Message to show the user when asking for the name of the branch."
-    :type 'string
-    )
+    :type 'string)
 
 (defcustom git-riddance-msg-remote-name (format "%s please enter the name of the remote to force push to: " git-riddance-message-prefix)
   "Message to show the user when asking for the remote to force push to."
-    :type 'string
-    )
+    :type 'string)
 
 (defcustom git-riddance-msg-target-dir (format "%s please enter the name of the target directory: " git-riddance-message-prefix)
   "Message to show the user when asking for the target directory."
-    :type 'string
-    )
+    :type 'string)
 
 (defcustom git-riddance-msg-remote-url (format "%s please enter the URL/SSH of the remote: " git-riddance-message-prefix)
   "Message to show the user when asking for the remote URL/SSH."
-    :type 'string
-    )
+    :type 'string)
 
 (defun git-riddance-read-commit-message ()
   "Read the wanted commit message for the first commit of new history."
-  (read-string git-riddance-msg-new-commit-message git-riddance-commit-message)
-  )
+  (read-string git-riddance-msg-new-commit-message git-riddance-commit-message))
 (defun git-riddance-read-branch-name ()
   "Read the wanted branch to rewrite history."
-  (read-string git-riddance-msg-branch-name git-riddance-branch-name)
-  )
+  (read-string git-riddance-msg-branch-name git-riddance-branch-name))
 
 (defun git-riddance-read-remote-name ()
   "Read the name of the remote to force push to."
-  (read-string git-riddance-msg-remote-name git-riddance-remote-name)
-  )
+  (read-string git-riddance-msg-remote-name git-riddance-remote-name))
 
 (defun git-riddance-read-target-dir ()
   "Read the target directory where to rewrite."
-  (read-directory-name git-riddance-msg-target-dir git-riddance-target-directory )
-  )
+  (read-directory-name git-riddance-msg-target-dir git-riddance-target-directory))
 
 (defun git-riddance-read-remote-url ()
   "Read the URL/SSH remote to force push to."
-  (read-string git-riddance-msg-remote-url git-riddance-remote-url)
-  )
+  (read-string git-riddance-msg-remote-url git-riddance-remote-url))
 
 (defun git-riddance-cmd-checkout-orphan ()
   "Shell command to run to checkout the latest commit as orphan."
-  (shell-command "git checkout --orphan latest_branch")
-  )
+  (shell-command "git checkout --orphan latest_branch"))
 (defun git-riddance-cmd-add-all-files ()
   "Shell command to run to add all files."
-  (shell-command "git add -A")
-  )
+  (shell-command "git add -A"))
 
 (defun git-riddance-cmd-first-commit (gr-commit-message)
   "Shell command to run to perform the first commit in new history.
 GR-COMMIT-MESSAGE will be used as commit message."
-  (shell-command (format "git commit -am \"%s\"" gr-commit-message))
-  )
+  (shell-command (format "git commit -am \"%s\"" gr-commit-message)))
 
 (defun git-riddance-cmd-delete-old-branch (gr-branch-name)
   "Shell command to run to delete the old branch.
 GR-BRANCH-NAME is the name of the branch we are working with"
-  (shell-command (format "git branch -D %s || true" gr-branch-name))
-  )
+  (shell-command (format "git branch -D %s || true" gr-branch-name)))
 
 (defun git-riddance-cmd-rename-new-branch (gr-branch-name)
   "Shell command to run to rename new branch.
 GR-BRANCH-NAME is the name of the branch we are working with"
-  (shell-command (format "git branch -m %s" gr-branch-name))
-  )
+  (shell-command (format "git branch -m %s" gr-branch-name)))
 
 (defun git-riddance-cmd-add-remote (gr-remote-name gr-remote-url)
   "Shell command to run to add the remote.
 GR-REMOTE-NAME is the name of the remote to force push to.
 GR-REMOTE-URL is the URL/SSH to force push to."
-  (shell-command (format "git remote add %s %s || true" gr-remote-name gr-remote-url))
-  )
+  (shell-command (format "git remote add %s %s || true" gr-remote-name gr-remote-url)))
 
 (defun git-riddance-cmd-force-push (gr-remote-name gr-branch-name)
   "Shell command to run to force push.
 GR-REMOTE-NAME is the name of the remote to force push to.
 GR-BRANCH-NAME is the name of the branch we are working with"
-  (shell-command (format "git push -uf %s %s" gr-remote-name gr-branch-name))
-  )
+  (shell-command (format "git push -uf %s %s" gr-remote-name gr-branch-name)))
 
 (defun git-riddance ()
   "Rewrite Git history of a directory.
@@ -178,9 +162,7 @@ specified directory with a new commit and branch."
         (git-riddance-cmd-add-remote gr-remote-name gr-remote-url)
         ;; Finally, all changes are completed on your local repository,
         ;; and force update your remote repository:
-        (git-riddance-cmd-force-push gr-remote-name gr-branch-name)
-    )
-  )
+        (git-riddance-cmd-force-push gr-remote-name gr-branch-name)))
 
 (provide 'git-riddance)
 
