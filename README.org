@@ -28,4 +28,13 @@ Check out [[./git-riddance.el][./git-riddance.el]] for more details.
 /image is courtesy of DALL E/
 
 
+** Installing and using
 
+This package is not (yet) available in popular Emacs repositories such as MELPA or ELPA. An example installation with Elpaca:
+
+#+begin_src emacs-lisp
+  (use-package git-riddance 
+  :ensure (:host github :repo "jjba23/git-riddance.el" :branch "trunk"))
+#+end_src
+
+Once installed simply run ~M-x git-riddance~ and you will be prompted for the relevant information. All the defaults are configurable and open for extension/configuration.
