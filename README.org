@@ -15,11 +15,6 @@
 
 Git Riddance is licensed under the GNU General Public License v3 or newer and is completely free software.
 
-*Usage*
-
-After installing, simply call ~M-x git-riddance~ or bind it to a key shortcut, and you will be prompted for the required data and target directory.
-There are some sane defaults configured, and all is customizable so you can override them with your own in your config.
-Check out [[./git-riddance.el][./git-riddance.el]] for more details.
 
 #+begin_html
 <img src="./resources/img/git-riddance.webp"/>
@@ -37,4 +32,6 @@ This package is not (yet) available in popular Emacs repositories such as MELPA 
   :ensure (:host github :repo "jjba23/git-riddance.el" :branch "trunk"))
 #+end_src
 
-Once installed simply run ~M-x git-riddance~ and you will be prompted for the relevant information. All the defaults are configurable and open for extension/configuration.
+After installing, simply call ~M-x git-riddance~ or bind it to a key shortcut, and you will be prompted for the required data and target directory.
+There are some sane defaults configured, and all is customizable so you can override them with your own in your config.
+Check out [[./git-riddance.el][./git-riddance.el]] for more details.
